@@ -1,5 +1,7 @@
 #include "String.h"
 
+#include "../List/List.h"
+
 struct cString
 {
     size_t _length;
@@ -68,7 +70,36 @@ String String_SubString(String self, int start, int length)
     String result = new_String(_length);
 
     for (size_t i = 0; i < _length; i++)
-        result->_characters[i] = self->_characters[start + direction * i];
+        result->_characters[i] = self->_characters[_start + direction * i];
+
+    return result;
+}
+
+List String_Split(String target, String delimiter)
+{
+    List result = new_List(0, (deleteFunction)del_String, (copyFunction)copy_String, (toStringFunction)str_String);
+
+    int from = 0;
+    for (size_t i = 0; i < target->_length - delimiter->_length + 1; i++)
+    {
+        bool delimiterFound = true;
+        for (size_t j = 0; j < delimiter->_length; j++)
+        {
+            if (target->_characters[i + j] == delimiter->_characters[j])
+                continue;
+
+            delimiterFound = false;
+            break;
+        }
+
+        if (delimiterFound)
+        {
+            int to = i - 1;
+            List_Append(result, String_SubString(target, from, to - from + 1));
+            from = i + delimiter->_length;
+        }
+    }
+    List_Append(result, String_SubString(target, from, target->_length - from));
 
     return result;
 }
