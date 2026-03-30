@@ -11,8 +11,11 @@ String str_String(String self);
 size_t String_GetLength(String self);
 char *String_GetCharacters(String self);
 
+void String_Append(String self, String other);
+
 String String_SubString(String self, int start, int length);
 List String_Split(String target, String delimiter);
+String String_Concatenate(String left, String right);
 
 String String_FromInt(int value);
 String String_FromLongInt(long int value);

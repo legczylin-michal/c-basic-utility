@@ -57,6 +57,17 @@ char *String_GetCharacters(String self)
     return self->_characters;
 }
 
+void String_Append(String self, String other)
+{
+    self->_characters = realloc(self->_characters, sizeof(char) * (self->_length + other->_length + 1));
+    for (size_t i = 0; i < other->_length; i++)
+        self->_characters[self->_length + i] = other->_characters[i];
+    self->_length += other->_length;
+    self->_characters[self->_length] = '\0';
+
+    return;
+}
+
 String String_SubString(String self, int start, int length)
 {
     size_t _start = start < 0 ? self->_length - ((-start) % self->_length) : start % self->_length;
@@ -100,6 +111,19 @@ List String_Split(String target, String delimiter)
         }
     }
     List_Append(result, String_SubString(target, from, target->_length - from));
+
+    return result;
+}
+
+String String_Concatenate(String left, String right)
+{
+    String result = new_String(left->_length + right->_length);
+
+    for (size_t i = 0; i < left->_length; i++)
+        result->_characters[i] = left->_characters[i];
+
+    for (size_t i = 0; i < right->_length; i++)
+        result->_characters[i + left->_length] = right->_characters[i];
 
     return result;
 }

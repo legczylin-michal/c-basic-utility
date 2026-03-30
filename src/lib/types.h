@@ -11,6 +11,9 @@ typedef struct cString *String;
 struct cList;
 typedef struct cList *List;
 
+struct cMatrix;
+typedef struct cMatrix *Matrix;
+
 typedef void (*deleteFunction)(void **);
 typedef void *(*copyFunction)(void *);
 typedef String (*toStringFunction)(void *);

@@ -31,6 +31,13 @@ int main(int argc, char const *argv[])
     printf("from 5 length -2: '%s'", String_GetCharacters(String_SubString(str1, 5, -2)));
     printf("\n");
     printf("from 5 length 2: '%s'", String_GetCharacters(String_SubString(str1, 5, 2)));
+    printf("\n");
+    String str2 = str("My name is John.");
+    String str3 = String_Concatenate(str1, str2);
+    printf("concatenated string: '%s' + '%s' = '%s'", String_GetCharacters(str1), String_GetCharacters(str2), String_GetCharacters(str3));
+    printf("\n");
+    String_Append(str1, str1);
+    printf("original: '%s'", String_GetCharacters(str1));
 
     printf("\nCOMPILED SUCCESSFULLY\n");
 
